@@ -28,7 +28,7 @@
       { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 }
     ];
 
-    const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'];
+    const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Wendell', 'Berry, Halle', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'];
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
@@ -74,12 +74,38 @@
       return total + (inventor.passed - inventor.year);
     }, 0);
 
-    console.log(totalYears)
+    //console.log(totalYears)
 
     // 5. Sort the inventors by years lived
+    const oldest = inventors.sort((lastOne, nextOne) => {
+      // Figure out the age of each inventor
+      const yearsLivedLastOne = lastOne.passed - lastOne.year;
+      const yearsLivedNextOne = nextOne.passed - nextOne.year;
+
+      return yearsLivedLastOne < yearsLivedNextOne ? 1 : -1;
+    });
+
+    //console.table(oldest);
 
     // 6. Sort Exercise
     // Sort the people alphabetically by last name
+    const alpha = people.sort((lastOne, nextOne) => {
+      //Compare the last names of each person by first destructuring the array
+      // 'lastname, firstname'
+      //const [aLast, aFirst] = lastOne.split(', ');
+      //const [bLast, bFirst] = nextOne.split(', ');
+
+      //return aLast > bLast ? 1 : -1;
+
+      // Another way to sort this so people with the same last name but
+      // different first names will be sorted properly
+      // return lastOne > nextOne ? 1 : -1;
+
+      // And yet another way to sort this
+      return lastOne.localeCompare(nextOne);
+    });
+    console.table(alpha);
+
 
     // 7. Reduce Exercise
     // Sum up the instances of each of these
